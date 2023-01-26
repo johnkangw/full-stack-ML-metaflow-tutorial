@@ -11,7 +11,7 @@ def init():
         is_feature = fname.startswith('feat_')
         is_model = fname.startswith('model_')
         if is_feature or is_model:
-            mod = import_module('taxi_modules.%s' % fname.split('.')[0])
+            mod = import_module(f"taxi_modules.{fname.split('.')[0]}")
             if is_feature:
                 cls = mod.FeatureEncoder
                 FEATURES[cls.NAME] = cls

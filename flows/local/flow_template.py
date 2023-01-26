@@ -26,9 +26,9 @@ class Template_Flow(FlowSpec):
         """
         Start Step for a Flow;
         """
-        print("flow name: %s" % current.flow_name)
-        print("run id: %s" % current.run_id)
-        print("username: %s" % current.username)
+        print(f"flow name: {current.flow_name}")
+        print(f"run id: {current.run_id}")
+        print(f"username: {current.username}")
 
         # Call next step in DAG with self.next(...)
         self.next(self.process_raw_data)

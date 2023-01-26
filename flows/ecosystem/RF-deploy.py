@@ -67,7 +67,7 @@ class Deployment_Flow(FlowSpec):
         import shutil
         import tarfile
         from sagemaker.sklearn import SKLearnModel
-        
+
         ROLE = os.getenv('ROLE')
         CODE_LOCATION = os.getenv('CODE_LOCATION')
 
@@ -78,7 +78,7 @@ class Deployment_Flow(FlowSpec):
 
         os.makedirs(model_name, exist_ok=True)
         # save model to local folder
-        joblib.dump(self.clf, "{}/{}.joblib".format(model_name, model_name))
+        joblib.dump(self.clf, f"{model_name}/{model_name}.joblib")
         # save model as tar.gz
         with tarfile.open(local_tar_name, mode="w:gz") as _tar:
             _tar.add(model_name, recursive=True)
@@ -97,8 +97,8 @@ class Deployment_Flow(FlowSpec):
                                      entry_point=CODE_LOCATION,
                                      framework_version='0.23-1',
                                      code_location='s3://oleg2-s3-mztdpcvj/sagemaker/')
-        endpoint_name = 'HBA-RF-endpoint-{}'.format(int(round(time.time() * 1000)))
-        print("\n\n================\nEndpoint name is: {}\n\n".format(endpoint_name))
+        endpoint_name = f'HBA-RF-endpoint-{int(round(time.time() * 1000))}'
+        print(f"\n\n================\nEndpoint name is: {endpoint_name}\n\n")
         # deploy model
         predictor = sklearn_model.deploy(instance_type='ml.c5.2xlarge',
                                          initial_instance_count=1,
@@ -107,7 +107,7 @@ class Deployment_Flow(FlowSpec):
         test_input = self.X
         result = predictor.predict(test_input)
         print(result)
-        
+
         self.next(self.end)
     
     @step

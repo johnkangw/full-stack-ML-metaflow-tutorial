@@ -9,7 +9,7 @@ def execute(table, sample_rate):
     print("%d/%d rows included" % (clean_table.num_rows, table.num_rows))
     shards = {}
     for name, encoder in FEATURES.items():
-        print("Processing features: %s" % name)
+        print(f"Processing features: {name}")
         shards[name] = encoder.encode(clean_table)
     return shards
 

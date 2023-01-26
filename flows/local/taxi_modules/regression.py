@@ -4,8 +4,7 @@ class RegressionModel():
     def fit(cls, train_data):
         from sklearn.linear_model import LinearRegression
         d = train_data[cls.FEATURES[0]][cls.regressor].reshape(-1, 1)
-        model = LinearRegression().fit(d, train_data['baseline']['amount'])
-        return model
+        return LinearRegression().fit(d, train_data['baseline']['amount'])
 
     @classmethod
     def mse(cls, model, test_data):
